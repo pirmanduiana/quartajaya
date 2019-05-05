@@ -7,28 +7,19 @@ use Encore\Admin\Controllers\Dashboard;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
+use Admin;
 
 class HomeController extends Controller
 {
     public function index(Content $content)
     {
-        return $content
-            ->header('Dashboard')
-            ->description('Description...')
-            ->row(Dashboard::title())
-            ->row(function (Row $row) {
+        return Admin::content(function (Content $content) {
 
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::environment());
-                });
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::extensions());
-                });
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::dependencies());
-                });
-            });
+            // optional
+            $content->header('Penjualan');            
+    
+            // Direct rendering view, Since v1.6.12
+            $content->view('sales', ['data' => 'foo']);
+        });
     }
 }
